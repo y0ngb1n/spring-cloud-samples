@@ -9,7 +9,7 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>samples-dependencies</module>
-    <module>samples-parent</module>
+    <module>samples-cloud-dependencies</module>
+    <module>samples-cloud-parent</module>
   </modules>
 </project>
