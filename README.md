@@ -8,8 +8,8 @@
 ![Maven](https://flat.badgen.net/badge/maven/3.6.0/yellow)
 ![Spring Boot](https://flat.badgen.net/badge/spring%20boot/2.x/green)
 ![Code Style](https://flat.badgen.net/badge/code%20style/standard/f2a)
-![GitHub Stars](https://flat.badgen.net/github/stars/y0ngb1n/samples%20cloud)
-![GitHub Forks](https://flat.badgen.net/github/forks/y0ngb1n/samples%20cloud)
+![GitHub Stars](https://flat.badgen.net/github/stars/y0ngb1n/samples-cloud)
+![GitHub Forks](https://flat.badgen.net/github/forks/y0ngb1n/samples-cloud)
 [![Follow Me](https://img.shields.io/github/followers/y0ngb1n.svg?style=social&label=Follow%20Me)](https://github.com/y0ngb1n)
 
 </div>
