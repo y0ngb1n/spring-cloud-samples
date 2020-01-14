@@ -25,6 +25,13 @@
         <artifactId>springfox-swagger-ui</artifactId>
         <version>${swagger.version}</version>
       </dependency>
+
+      <!-- Common -->
+      <dependency>
+        <groupId>io.github.y0ngb1n.cloud</groupId>
+        <artifactId>samples-cloud-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

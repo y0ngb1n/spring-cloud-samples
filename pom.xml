@@ -11,5 +11,6 @@
   <modules>
     <module>samples-cloud-dependencies</module>
     <module>samples-cloud-parent</module>
+    <module>samples-cloud-common</module>
   </modules>
 </project>
