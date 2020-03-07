@@ -7,6 +7,7 @@
     <groupId>io.github.y0ngb1n.cloud</groupId>
     <artifactId>samples-cloud-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../samples-cloud-parent</relativePath>
   </parent>
 
   <artifactId>samples-cloud-common</artifactId>
