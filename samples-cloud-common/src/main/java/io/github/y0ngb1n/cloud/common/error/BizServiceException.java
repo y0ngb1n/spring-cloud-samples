@@ -10,8 +10,7 @@ import lombok.Getter;
  */
 public class BizServiceException extends RuntimeException {
 
-  @Getter
-  private final ErrorCode errorCode;
+  @Getter private final ErrorCode errorCode;
 
   public BizServiceException(String message) {
     super(message);

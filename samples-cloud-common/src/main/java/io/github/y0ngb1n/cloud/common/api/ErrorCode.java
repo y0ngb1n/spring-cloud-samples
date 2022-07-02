@@ -12,7 +12,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
-
   SUCCESS(HttpServletResponse.SC_OK, "Operation is Successful"),
 
   FAILURE(HttpServletResponse.SC_BAD_REQUEST, "Biz Exception"),
@@ -25,7 +24,8 @@ public enum ErrorCode {
 
   METHOD_NOT_SUPPORTED(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Method Not Supported"),
 
-  MEDIA_TYPE_NOT_SUPPORTED(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, "Media Type Not Supported"),
+  MEDIA_TYPE_NOT_SUPPORTED(
+      HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, "Media Type Not Supported"),
 
   REQ_REJECT(HttpServletResponse.SC_FORBIDDEN, "Request Rejected"),
 
@@ -39,13 +39,9 @@ public enum ErrorCode {
 
   PARAM_VALID_ERROR(HttpServletResponse.SC_BAD_REQUEST, "Parameter Validation Error");
 
-  /**
-   * 错误码.
-   */
+  /** 错误码. */
   final int code;
 
-  /**
-   * 错误码描述.
-   */
+  /** 错误码描述. */
   final String message;
 }

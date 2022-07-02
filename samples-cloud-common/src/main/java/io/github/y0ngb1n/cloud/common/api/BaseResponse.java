@@ -14,15 +14,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BaseResponse {
 
-  /**
-   * 错误码.
-   */
-  @Builder.Default
-  private ErrorCode code = ErrorCode.SUCCESS;
+  /** 错误码. */
+  @Builder.Default private ErrorCode code = ErrorCode.SUCCESS;
 
-  /**
-   * 错误信息.
-   */
+  /** 错误信息. */
   private String message;
 
   public boolean isSuccess() {
