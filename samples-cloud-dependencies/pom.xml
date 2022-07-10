@@ -12,6 +12,8 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
+    <google-guava.version>31.1-jre</google-guava.version>
+    <hutool.version>5.8.4</hutool.version>
     <samples-cloud.version>0.0.1-SNAPSHOT</samples-cloud.version>
     <spotless.version>2.23.0</spotless.version>
     <spring-boot.version>2.6.9</spring-boot.version>
@@ -27,6 +29,16 @@
         <version>${spring-cloud.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>cn.hutool</groupId>
+        <artifactId>hutool-crypto</artifactId>
+        <version>${hutool.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${google-guava.version}</version>
       </dependency>
       <!-- Common -->
       <dependency>

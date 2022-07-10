@@ -13,6 +13,7 @@
   <modules>
     <module>samples-cloud-common</module>
     <module>samples-cloud-dependencies</module>
+    <module>samples-cloud-gateway-rsa</module>
     <module>samples-cloud-parent</module>
   </modules>
 </project>

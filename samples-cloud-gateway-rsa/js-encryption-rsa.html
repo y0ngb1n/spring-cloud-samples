@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spring Cloud Gateway & JSEncrypt RSA Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="container mx-auto bg-slate-100">
+    <div class="text-2xl my-12 block text-center font-bold">
+      Spring Cloud Gateway & JSEncrypt RSA Demo
+    </div>
+
+    <div class="text-xl mb-3">RSA Config</div>
+    <div class="grid gap-4 grid-cols-2 mb-3">
+      <div>
+        <div class="pt-0 p-2">
+          <h3>Public Key</h3>
+          <p class="text-sm text-slate-400">
+            请求时：客户端使用公钥加密，服务端使用私钥解密（*密钥对1）
+          </p>
+        </div>
+        <textarea
+          id="public-key"
+          class="block bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-none rounded-md"
+          rows="8"
+        ></textarea>
+      </div>
+      <div>
+        <div class="pt-0 p-2">
+          <h3>Private Key</h3>
+          <p class="text-sm text-slate-400">
+            响应时：服务端使用公钥加密，客户端使用私钥解密（*密钥对2）
+          </p>
+        </div>
+
+        <textarea
+          id="private-key"
+          class="block bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-none rounded-md"
+          rows="8"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="text-xl mb-3">Input</div>
+    <div class="mb-3">
+      <textarea
+        id="plain-text"
+        class="block bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-none rounded-md"
+        rows="8"
+      ></textarea>
+      <button
+        id="btn_submit"
+        type="button"
+        class="my-3 w-full px-4 py-2 font-semibold text-sm bg-sky-500 text-white rounded-md shadow-sm opacity-100"
+      >
+        提交数据
+      </button>
+    </div>
+
+    <div class="text-xl mb-3">Request</div>
+    <div class="grid gap-4 grid-cols-2 mb-3">
+      <div>
+        <p class="text-sm pt-0 p-2">Raw Data</p>
+        <textarea
+          id="request-data-raw"
+          class="block bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-none rounded-md"
+          rows="8"
+          disabled
+        ></textarea>
+      </div>
+      <div>
+        <p class="text-sm pt-0 p-2">Encrypted Data</p>
+        <textarea
+          id="request-data-encrypted"
+          class="block bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-none rounded-md"
+          rows="8"
+          disabled
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="text-xl mb-3">Response</div>
+    <div class="grid gap-4 grid-cols-2 mb-3">
+      <div>
+        <p class="text-sm pt-0 p-2">Encrypted Data</p>
+        <textarea
+          id="response-data-encrypted"
+          class="block bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-none rounded-md"
+          rows="8"
+          disabled
+        ></textarea>
+      </div>
+      <div>
+        <p class="text-sm pt-0 p-2">Decrypted Data</p>
+        <textarea
+          id="response-data-decrypted"
+          class="block bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-none rounded-md"
+          rows="8"
+          disabled
+        ></textarea>
+      </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jsencrypt/3.2.1/jsencrypt.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js"
+      integrity="sha256-8L3yX9qPmvWSDIIHB3WGTH4RZusxVA0DDmuAo4LjnOE="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      const publicKey =
+        "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArKGghemgJ/0t3dlv2RrTLInYzAdbDrJOog8VAKd6z8lAqSzCpIQr71ERnBUGFCOfBQY+cV66EU4UPenqWBvUIAUFzP1VBk94mCIY2Ln6ZRbKJU3/GIgYgYwhnbqtCIvfFsj70t7Yebt3e8ll3JVktbytpWeFBJMeojaAxLVBR1UAazsa5xF0XWf6YjLFfZhp/I6duEchIvyYbn3nlIDnbSSD5J4dsEQA1zpXJFvuFq8N2gwb1riwveW4YdTsoTGJPZr8MaaFWW+7wVi7DqkotmzqpdMAWixymneKSjhsTeDCIe9/fnhMKB2/vEpge1txYrZl+vjOyXEEj7pAzayb9wIDAQAB";
+      const privateKey =
+        "MIIEowIBAAKCAQEArKGghemgJ/0t3dlv2RrTLInYzAdbDrJOog8VAKd6z8lAqSzCpIQr71ERnBUGFCOfBQY+cV66EU4UPenqWBvUIAUFzP1VBk94mCIY2Ln6ZRbKJU3/GIgYgYwhnbqtCIvfFsj70t7Yebt3e8ll3JVktbytpWeFBJMeojaAxLVBR1UAazsa5xF0XWf6YjLFfZhp/I6duEchIvyYbn3nlIDnbSSD5J4dsEQA1zpXJFvuFq8N2gwb1riwveW4YdTsoTGJPZr8MaaFWW+7wVi7DqkotmzqpdMAWixymneKSjhsTeDCIe9/fnhMKB2/vEpge1txYrZl+vjOyXEEj7pAzayb9wIDAQABAoIBAD/f2d5SsFC7jBIPFyR0mXhcVNxBSH7qmM+71uCUF4v0gjlWd3qZ8Quuql5fJQ2klH0ub0JRc3Vdt32lJHGPcnCaiyfrAF/CXfOkgh8GyVBIG2msL1wrVy3v5KxQ2x9TaasrmInQrLZ2F+K0hT0WBdp8wp916zDjIq2Qjxq5mjrC6fIWPhKj7Ad/ny2VPrYf0GXDlq0BFGk+jXVnlRkF1CA9EMqsqfezugQw8jseL8fCLKme3/csI0BqvurWuVVe83dl9z7g4QCTCKcgGbuesNZqoj8OnQUukqwnQBx2diH05VO73/6k/reCQSiOnQGbwGpE54zToieCR7x+LN4gyzECgYEA+aevrg7JBEirZPRKe6EypeKa7TxZfANDoEtGqdzeyRjSRtNKuF0vsGB/6INDSmQU/GdnrtFujCAuhHRYSpnyehOQhTUXTk87PONKoUGfczmcz9uFLvWyBXaVmsk4D+ydP0D2Mw8Hmcc5s1D21l844DO1/44HV9Rd3CqtqGixhx8CgYEAsQTOjmr0DCykRidUFZaxmlznyW9WEmMJBEHyeiaJacfQdZfkjLWXWjrhV18JLJ/SN5UVpRw3+D/HPFB+1mlsuHcf4OBUDddUcGcGpiEcSN/lr97vIVKerlq/siuDpKOdccpr8P6VpJiZ411RxT+m27zli25ghqTLNVRhYutbCCkCgYAUIe6r5atWOhoAQScEg0JXWEfQG87HjmfUtF1Vc2dP5j2G0qEy7ujam12VPYiepiV/GUOmOGNmz22Q5uT71yBTseI0q8xeV0tapKWvDWCzZRD9PiGmYM/jWuXDnrhzqEwh/rYb9flR8Fv51uyg6vrmMaVan3R+I7UR/SsV6qNuVwKBgQCkg04gJ5/1rItjM2u+wJUAW7WCjHlWjzmy/kMGaMguSegfUXGzn5Qw5CXGmGkjUskApQo/r3EIwuU71ad7RvEmonc6++DCGEu+RtF0FbN+uq5w+2QL+QfGDEq5oB0xJmnNdg1JJKEYHkZueqzi/xvofa5rHcKRf5fnUStMzmSEuQKBgDo3z2iFUJWUO/ohxyzjUa0O6GU8AWf1NHmgQhtvgJvbhVuFzoxxudKfG9UIQlD5EguA/nfJjmuIUXl+9h0AmhLDeYGtAMDwhixdeULxDS93k4wsajG6XlYCoYxPnkIXBEDU+bFypbEtCpFpPV/aTk5jFwLOV9FcAuO+elyQclsK";
+      $("#public-key").html(publicKey);
+      $("#private-key").html(privateKey);
+
+      const jsEncrypt = new JSEncrypt();
+      jsEncrypt.setPublicKey(publicKey);
+
+      const jsDecrypt = new JSEncrypt();
+      jsDecrypt.setPrivateKey(privateKey);
+
+      const clientId = "abcdef123456";
+      const requestData = {
+        clientId,
+        requestId: "",
+        timestamp: "",
+        payload: "",
+        signature: "",
+      };
+      $("#request-data-raw").html(JSON.stringify(requestData, null, 2));
+
+      $("#plain-text").html();
+      $("#btn_submit").click(function () {
+        let timestamp = ("" + new Date().getTime() / 1000) | 0;
+        let requestId = CryptoJS.SHA256(`${new Date().getTime()}`).toString();
+
+        requestData.timestamp = timestamp;
+        requestData.requestId = requestId;
+
+        const data = {};
+        data.plainText = $("#plain-text").val();
+        requestData.payload = JSON.stringify(data);
+        $("#request-data-raw").html(JSON.stringify(requestData, null, 2));
+
+        requestData.payload = jsEncrypt.encrypt(JSON.stringify(data));
+
+        const keyArr = ["clientId", "signature"];
+        const coreRequestParamsStr = Object.entries(requestData)
+          .sort()
+          .filter(([key, value]) => {
+            return !keyArr.includes(key);
+          })
+          .map(([key, value]) => {
+            return `${key}=${value}`;
+          })
+          .join("&")
+          .concat(`&clientId=${clientId}`);
+
+        let requestSha256Hex = CryptoJS.SHA256(coreRequestParamsStr).toString();
+        requestData.signature = jsEncrypt.encrypt(requestSha256Hex);
+
+        console.log(
+          `【签名摘要】明文内容：${coreRequestParamsStr}\n【签名摘要】数字摘要：${requestSha256Hex}`
+        );
+
+        let requestDataEncrypted = JSON.stringify(requestData);
+        $("#request-data-encrypted").html(requestDataEncrypted);
+
+        $.ajax({
+          url: "http://localhost:9999/post",
+          data: requestDataEncrypted,
+          type: "POST",
+          dataType: "json",
+          contentType: "application/json;charset=utf-8",
+          headers: {
+            "X-Client-Id": clientId,
+          },
+          success: function (response) {
+            console.log(
+              `【请求响应数据】${JSON.stringify(
+                response
+              )}\n【解密业务数据】${jsDecrypt.decrypt(
+                response.payload
+              )}\n【解密摘要签名】${jsDecrypt.decrypt(response.signature)}`
+            );
+            $("#response-data-encrypted").html(JSON.stringify(response));
+            $("#response-data-decrypted").html(
+              jsDecrypt.decrypt(response.payload) ||
+                jsDecrypt.decrypt(response.signature) ||
+                "error"
+            );
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
