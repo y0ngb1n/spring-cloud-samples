@@ -12,7 +12,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
-    <google-guava.version>31.1-jre</google-guava.version>
+    <google-guava.version>32.0.0-jre</google-guava.version>
     <hutool.version>5.8.4</hutool.version>
     <samples-cloud.version>0.0.1-SNAPSHOT</samples-cloud.version>
     <spotless.version>2.23.0</spotless.version>
