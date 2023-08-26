@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.9</version>
+    <version>2.7.15</version>
     <relativePath />
   </parent>
   <groupId>io.github.y0ngb1n.cloud</groupId>
@@ -16,8 +16,8 @@
     <hutool.version>5.8.4</hutool.version>
     <samples-cloud.version>0.0.1-SNAPSHOT</samples-cloud.version>
     <spotless.version>2.30.0</spotless.version>
-    <spring-boot.version>2.6.9</spring-boot.version>
-    <spring-cloud.version>2021.0.3</spring-cloud.version>
+    <spring-boot.version>2.7.15</spring-boot.version>
+    <spring-cloud.version>2021.0.8</spring-cloud.version>
     <swagger.version>2.9.2</swagger.version>
   </properties>
   <dependencyManagement>
@@ -63,17 +63,17 @@
   <repositories>
     <!-- 私有仓库 -->
     <!-- 阿里云公共仓库 -->
-    <repository>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>aliyun-mirror-repo</id>
-      <name>Aliyun Mirror Repository</name>
-      <url>https://maven.aliyun.com/repository/public</url>
-    </repository>
+    <!--    <repository>-->
+    <!--      <releases>-->
+    <!--        <enabled>true</enabled>-->
+    <!--      </releases>-->
+    <!--      <snapshots>-->
+    <!--        <enabled>false</enabled>-->
+    <!--      </snapshots>-->
+    <!--      <id>aliyun-mirror-repo</id>-->
+    <!--      <name>Aliyun Mirror Repository</name>-->
+    <!--      <url>https://maven.aliyun.com/repository/public</url>-->
+    <!--    </repository>-->
     <!-- Spring 官方仓库 -->
     <repository>
       <snapshots>
