@@ -85,19 +85,13 @@ public class GlobalExceptionTranslator {
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   public BaseResponse handleError(HttpRequestMethodNotSupportedException e) {
     log.error("Request Method Not Supported", e);
-    return BaseResponse.builder()
-        .code(ErrorCode.METHOD_NOT_SUPPORTED)
-        .message(e.getMessage())
-        .build();
+    return BaseResponse.builder().code(ErrorCode.METHOD_NOT_SUPPORTED).message(e.getMessage()).build();
   }
 
   @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
   public BaseResponse handleError(HttpMediaTypeNotSupportedException e) {
     log.error("Media Type Not Supported", e);
-    return BaseResponse.builder()
-        .code(ErrorCode.MEDIA_TYPE_NOT_SUPPORTED)
-        .message(e.getMessage())
-        .build();
+    return BaseResponse.builder().code(ErrorCode.MEDIA_TYPE_NOT_SUPPORTED).message(e.getMessage()).build();
   }
 
   @ExceptionHandler(BizServiceException.class)
@@ -109,9 +103,6 @@ public class GlobalExceptionTranslator {
   @ExceptionHandler(Throwable.class)
   public BaseResponse handleError(Throwable e) {
     log.error("Internal Server Error", e);
-    return BaseResponse.builder()
-        .code(ErrorCode.INTERNAL_SERVER_ERROR)
-        .message(e.getMessage())
-        .build();
+    return BaseResponse.builder().code(ErrorCode.INTERNAL_SERVER_ERROR).message(e.getMessage()).build();
   }
 }

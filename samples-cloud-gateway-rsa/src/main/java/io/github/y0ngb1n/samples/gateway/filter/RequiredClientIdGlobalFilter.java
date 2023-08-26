@@ -25,19 +25,14 @@ public class RequiredClientIdGlobalFilter implements GlobalFilter, Ordered {
 
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-    final String requestClientId =
-        exchange.getRequest().getHeaders().getFirst(RequestHeaderConstants.CLIENT_ID);
-    final Optional<ClientDetailsProperties.ClientDetails> clientDetailsOptional =
-        clientDetailsProperties.find(requestClientId);
-    final ClientDetails clientDetails =
-        clientDetailsOptional.<RuntimeException>orElseThrow(
-            () -> {
-              throw new RuntimeException("非法请求客户端");
-            });
+    final String requestClientId = exchange.getRequest().getHeaders().getFirst(RequestHeaderConstants.CLIENT_ID);
+    final Optional<ClientDetailsProperties.ClientDetails> clientDetailsOptional = clientDetailsProperties
+        .find(requestClientId);
+    final ClientDetails clientDetails = clientDetailsOptional.<RuntimeException>orElseThrow(() -> {
+      throw new RuntimeException("非法请求客户端");
+    });
     log.debug("【客户端】{}", clientDetails);
-    exchange
-        .getAttributes()
-        .put(ServerWebExchangeConstants.REQUEST_CLIENT_DETAILS_ATTR, clientDetails);
+    exchange.getAttributes().put(ServerWebExchangeConstants.REQUEST_CLIENT_DETAILS_ATTR, clientDetails);
     return chain.filter(exchange);
   }
 

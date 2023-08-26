@@ -25,15 +25,8 @@ public class RequestElapsedLogGlobalFilter implements GlobalFilter, Ordered {
     final Stopwatch stopwatch = Stopwatch.createStarted();
     final String requestURI = exchange.getRequest().getURI().getPath();
 
-    return chain
-        .filter(exchange)
-        .then(
-            Mono.fromRunnable(
-                () ->
-                    log.info(
-                        "[{}] elapsed [{}ms]",
-                        requestURI,
-                        stopwatch.elapsed(TimeUnit.MILLISECONDS))));
+    return chain.filter(exchange).then(Mono.fromRunnable(
+        () -> log.info("[{}] elapsed [{}ms]", requestURI, stopwatch.elapsed(TimeUnit.MILLISECONDS))));
   }
 
   @Override

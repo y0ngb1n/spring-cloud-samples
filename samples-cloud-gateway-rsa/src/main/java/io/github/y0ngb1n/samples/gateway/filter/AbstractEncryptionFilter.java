@@ -35,28 +35,22 @@ public abstract class AbstractEncryptionFilter implements GlobalFilter, Ordered 
     if (isEncryptDebugEnabled(exchange)) {
       return chain.filter(exchange);
     }
-    return DataBufferUtils.join(exchange.getRequest().getBody())
-        .flatMap(
-            dataBuffer -> {
-              final DataBufferFactory bufferFactory = exchange.getResponse().bufferFactory();
-              final ServerHttpRequestDecorator requestDecorator =
-                  processRequest(exchange, dataBuffer, bufferFactory);
-              final ServerHttpResponseDecorator responseDecorator =
-                  processResponse(exchange, bufferFactory);
-              return chain.filter(
-                  exchange.mutate().request(requestDecorator).response(responseDecorator).build());
-            });
+    return DataBufferUtils.join(exchange.getRequest().getBody()).flatMap(dataBuffer -> {
+      final DataBufferFactory bufferFactory = exchange.getResponse().bufferFactory();
+      final ServerHttpRequestDecorator requestDecorator = processRequest(exchange, dataBuffer, bufferFactory);
+      final ServerHttpResponseDecorator responseDecorator = processResponse(exchange, bufferFactory);
+      return chain.filter(exchange.mutate().request(requestDecorator).response(responseDecorator).build());
+    });
   }
 
   /** 处理请求 */
-  protected ServerHttpRequestDecorator processRequest(
-      ServerWebExchange exchange, DataBuffer dataBuffer, DataBufferFactory bufferFactory) {
+  protected ServerHttpRequestDecorator processRequest(ServerWebExchange exchange, DataBuffer dataBuffer,
+      DataBufferFactory bufferFactory) {
     return new ServerHttpRequestDecorator(exchange.getRequest());
   }
 
   /** 处理响应 */
-  protected ServerHttpResponseDecorator processResponse(
-      ServerWebExchange exchange, DataBufferFactory bufferFactory) {
+  protected ServerHttpResponseDecorator processResponse(ServerWebExchange exchange, DataBufferFactory bufferFactory) {
     return new ServerHttpResponseDecorator(exchange.getResponse());
   }
 
@@ -65,12 +59,10 @@ public abstract class AbstractEncryptionFilter implements GlobalFilter, Ordered 
     boolean isEncryptDebugEnabled = false;
     if (log.isDebugEnabled()) {
       // 设置是否加密标识
-      List<String> encryptDebugHeaders =
-          exchange.getRequest().getHeaders().get(ENCRYPT_DEBUG_ENABLED_KEY);
-      String encryptDebugValue =
-          encryptDebugHeaders != null
-              ? encryptDebugHeaders.get(0)
-              : ENCRYPT_DEBUG_ENABLED_DEFAULT_VALUE;
+      List<String> encryptDebugHeaders = exchange.getRequest().getHeaders().get(ENCRYPT_DEBUG_ENABLED_KEY);
+      String encryptDebugValue = encryptDebugHeaders != null
+          ? encryptDebugHeaders.get(0)
+          : ENCRYPT_DEBUG_ENABLED_DEFAULT_VALUE;
       exchange.getAttributes().put(ENCRYPT_DEBUG_ENABLED_KEY, encryptDebugValue);
       isEncryptDebugEnabled = ENCRYPT_DEBUG_ENABLED_VALUE.equals(encryptDebugValue);
     }

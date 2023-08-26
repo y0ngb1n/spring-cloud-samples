@@ -21,7 +21,8 @@ public abstract class BaseEncryption {
   private static final long serialVersionUID = -3256712373758117012L;
 
   /** 请求流水号 */
-  @NotBlank protected String requestId;
+  @NotBlank
+  protected String requestId;
 
   /** 请求时间戳 */
   @NotBlank
@@ -29,10 +30,12 @@ public abstract class BaseEncryption {
   protected String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
 
   /** 业务数据 */
-  @NotBlank protected String payload;
+  @NotBlank
+  protected String payload;
 
   /** 请求签名 */
-  @NotBlank protected String signature;
+  @NotBlank
+  protected String signature;
 
   /** 请求客户端配置 */
   protected transient ClientDetailsProperties.ClientDetails clientDetails;
@@ -49,11 +52,8 @@ public abstract class BaseEncryption {
     BeanUtil.beanToMap(this, data, false, true);
     data.remove("signature");
     data.remove("clientDetails");
-    final String text =
-        Joiner.on("&")
-            .withKeyValueSeparator("=")
-            .join(data)
-            .concat(String.format("&clientId=%s", clientDetails.getId()));
+    final String text = Joiner.on("&").withKeyValueSeparator("=").join(data)
+        .concat(String.format("&clientId=%s", clientDetails.getId()));
     final String sha256Hex = DigestUtils.sha256Hex(text);
     log.debug("\n【签名摘要】明文内容：{}\n【签名摘要】数字摘要：{}", text, sha256Hex);
     return sha256Hex;

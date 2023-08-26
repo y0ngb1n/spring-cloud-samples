@@ -57,9 +57,8 @@ public class RsaUtils {
     try {
       // base64 编码的公钥
       byte[] decoded = Base64.decodeBase64(publicKey);
-      RSAPublicKey pubKey =
-          (RSAPublicKey)
-              KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(decoded));
+      RSAPublicKey pubKey = (RSAPublicKey) KeyFactory.getInstance("RSA")
+          .generatePublic(new X509EncodedKeySpec(decoded));
       // RSA 加密
       Cipher cipher = Cipher.getInstance("RSA");
       cipher.init(Cipher.ENCRYPT_MODE, pubKey);
@@ -76,9 +75,8 @@ public class RsaUtils {
       byte[] inputByte = Base64.decodeBase64(str.getBytes(StandardCharsets.UTF_8));
       // base64 编码的私钥
       byte[] decoded = Base64.decodeBase64(privateKey);
-      RSAPrivateKey priKey =
-          (RSAPrivateKey)
-              KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(decoded));
+      RSAPrivateKey priKey = (RSAPrivateKey) KeyFactory.getInstance("RSA")
+          .generatePrivate(new PKCS8EncodedKeySpec(decoded));
       // RSA 解密
       Cipher cipher = Cipher.getInstance("RSA");
       cipher.init(Cipher.DECRYPT_MODE, priKey);
@@ -93,9 +91,8 @@ public class RsaUtils {
     try {
       // base64 编码的公钥
       byte[] decoded = Base64.decodeBase64(privateKey);
-      RSAPrivateKey priKey =
-          (RSAPrivateKey)
-              KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(decoded));
+      RSAPrivateKey priKey = (RSAPrivateKey) KeyFactory.getInstance("RSA")
+          .generatePrivate(new PKCS8EncodedKeySpec(decoded));
       // RSA 加密
       Cipher cipher = Cipher.getInstance("RSA");
       cipher.init(Cipher.ENCRYPT_MODE, priKey);
@@ -112,9 +109,8 @@ public class RsaUtils {
       byte[] inputByte = Base64.decodeBase64(str.getBytes(StandardCharsets.UTF_8));
       // base64 编码的私钥
       byte[] decoded = Base64.decodeBase64(publicKey);
-      RSAPublicKey pubKey =
-          (RSAPublicKey)
-              KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(decoded));
+      RSAPublicKey pubKey = (RSAPublicKey) KeyFactory.getInstance("RSA")
+          .generatePublic(new X509EncodedKeySpec(decoded));
       // RSA 解密
       Cipher cipher = Cipher.getInstance("RSA");
       cipher.init(Cipher.DECRYPT_MODE, pubKey);

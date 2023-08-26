@@ -23,9 +23,8 @@ public class EncryptionConfig {
   private final ApplicationContext applicationContext;
 
   @Bean
-  public AbstractEncryptionFilter rsaEncryptGlobalFilter(
-      Set<MessageBodyEncoder> messageBodyEncoders, Set<MessageBodyDecoder> messageBodyDecoders) {
-    return new RsaEncryptionGlobalFilter(
-        applicationContext, messageBodyEncoders, messageBodyDecoders);
+  public AbstractEncryptionFilter rsaEncryptGlobalFilter(Set<MessageBodyEncoder> messageBodyEncoders,
+      Set<MessageBodyDecoder> messageBodyDecoders) {
+    return new RsaEncryptionGlobalFilter(applicationContext, messageBodyEncoders, messageBodyDecoders);
   }
 }

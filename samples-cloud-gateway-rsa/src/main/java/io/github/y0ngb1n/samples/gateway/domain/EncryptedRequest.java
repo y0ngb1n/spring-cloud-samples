@@ -25,8 +25,8 @@ public class EncryptedRequest extends BaseEncryption implements Serializable {
   /** 验证签名 */
   public boolean verifySignature() {
     final String sha256Hex = this.sign();
-    final String requestSha256Hex =
-        StrUtil.str(rsa().decrypt(this.signature, KeyType.PrivateKey), StandardCharsets.UTF_8);
+    final String requestSha256Hex = StrUtil.str(rsa().decrypt(this.signature, KeyType.PrivateKey),
+        StandardCharsets.UTF_8);
     return Objects.equals(requestSha256Hex, sha256Hex);
   }
 

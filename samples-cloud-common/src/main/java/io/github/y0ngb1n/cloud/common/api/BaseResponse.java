@@ -5,7 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/** @author yangbin */
+/**
+ * 定义服务接口通用响应.
+ *
+ * @author yangbin
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,7 +17,8 @@ import lombok.NoArgsConstructor;
 public class BaseResponse {
 
   /** 错误码. */
-  @Builder.Default private ErrorCode code = ErrorCode.SUCCESS;
+  @Builder.Default
+  private ErrorCode code = ErrorCode.SUCCESS;
 
   /** 错误信息. */
   private String message;

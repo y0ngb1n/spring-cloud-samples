@@ -1,8 +1,9 @@
+---
 server:
   port: 9999
 spring:
   application:
-    name: samples-gateway
+    name: "samples-gateway"
   cloud:
     gateway:
       globalcors:
@@ -11,26 +12,24 @@ spring:
             allowedOrigins: "*"
             allowedHeaders: "*"
             allowedMethods:
-              - OPTIONS
-              - GET
-              - POST
+            - "OPTIONS"
+            - "GET"
+            - "POST"
       default-filters:
-        - DedupeResponseHeader=Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
+      - "DedupeResponseHeader=Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials,\
+        \ RETAIN_FIRST"
       routes:
-        - id: httpbin_route
-          uri: https://httpbin.org
-          predicates:
-            - Path=/**
-
+      - id: "httpbin_route"
+        uri: "https://httpbin.org"
+        predicates:
+        - "Path=/**"
 logging:
   level:
-    io.github.y0ngb1n.*: debug
-
+    io.github.y0ngb1n.*: "debug"
 app:
   authorize:
     clients:
-      - id: abcdef123456
-        name: DevClientId
-        key: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArKGghemgJ/0t3dlv2RrTLInYzAdbDrJOog8VAKd6z8lAqSzCpIQr71ERnBUGFCOfBQY+cV66EU4UPenqWBvUIAUFzP1VBk94mCIY2Ln6ZRbKJU3/GIgYgYwhnbqtCIvfFsj70t7Yebt3e8ll3JVktbytpWeFBJMeojaAxLVBR1UAazsa5xF0XWf6YjLFfZhp/I6duEchIvyYbn3nlIDnbSSD5J4dsEQA1zpXJFvuFq8N2gwb1riwveW4YdTsoTGJPZr8MaaFWW+7wVi7DqkotmzqpdMAWixymneKSjhsTeDCIe9/fnhMKB2/vEpge1txYrZl+vjOyXEEj7pAzayb9wIDAQAB'
-        secret: 'MIIEowIBAAKCAQEArKGghemgJ/0t3dlv2RrTLInYzAdbDrJOog8VAKd6z8lAqSzCpIQr71ERnBUGFCOfBQY+cV66EU4UPenqWBvUIAUFzP1VBk94mCIY2Ln6ZRbKJU3/GIgYgYwhnbqtCIvfFsj70t7Yebt3e8ll3JVktbytpWeFBJMeojaAxLVBR1UAazsa5xF0XWf6YjLFfZhp/I6duEchIvyYbn3nlIDnbSSD5J4dsEQA1zpXJFvuFq8N2gwb1riwveW4YdTsoTGJPZr8MaaFWW+7wVi7DqkotmzqpdMAWixymneKSjhsTeDCIe9/fnhMKB2/vEpge1txYrZl+vjOyXEEj7pAzayb9wIDAQABAoIBAD/f2d5SsFC7jBIPFyR0mXhcVNxBSH7qmM+71uCUF4v0gjlWd3qZ8Quuql5fJQ2klH0ub0JRc3Vdt32lJHGPcnCaiyfrAF/CXfOkgh8GyVBIG2msL1wrVy3v5KxQ2x9TaasrmInQrLZ2F+K0hT0WBdp8wp916zDjIq2Qjxq5mjrC6fIWPhKj7Ad/ny2VPrYf0GXDlq0BFGk+jXVnlRkF1CA9EMqsqfezugQw8jseL8fCLKme3/csI0BqvurWuVVe83dl9z7g4QCTCKcgGbuesNZqoj8OnQUukqwnQBx2diH05VO73/6k/reCQSiOnQGbwGpE54zToieCR7x+LN4gyzECgYEA+aevrg7JBEirZPRKe6EypeKa7TxZfANDoEtGqdzeyRjSRtNKuF0vsGB/6INDSmQU/GdnrtFujCAuhHRYSpnyehOQhTUXTk87PONKoUGfczmcz9uFLvWyBXaVmsk4D+ydP0D2Mw8Hmcc5s1D21l844DO1/44HV9Rd3CqtqGixhx8CgYEAsQTOjmr0DCykRidUFZaxmlznyW9WEmMJBEHyeiaJacfQdZfkjLWXWjrhV18JLJ/SN5UVpRw3+D/HPFB+1mlsuHcf4OBUDddUcGcGpiEcSN/lr97vIVKerlq/siuDpKOdccpr8P6VpJiZ411RxT+m27zli25ghqTLNVRhYutbCCkCgYAUIe6r5atWOhoAQScEg0JXWEfQG87HjmfUtF1Vc2dP5j2G0qEy7ujam12VPYiepiV/GUOmOGNmz22Q5uT71yBTseI0q8xeV0tapKWvDWCzZRD9PiGmYM/jWuXDnrhzqEwh/rYb9flR8Fv51uyg6vrmMaVan3R+I7UR/SsV6qNuVwKBgQCkg04gJ5/1rItjM2u+wJUAW7WCjHlWjzmy/kMGaMguSegfUXGzn5Qw5CXGmGkjUskApQo/r3EIwuU71ad7RvEmonc6++DCGEu+RtF0FbN+uq5w+2QL+QfGDEq5oB0xJmnNdg1JJKEYHkZueqzi/xvofa5rHcKRf5fnUStMzmSEuQKBgDo3z2iFUJWUO/ohxyzjUa0O6GU8AWf1NHmgQhtvgJvbhVuFzoxxudKfG9UIQlD5EguA/nfJjmuIUXl+9h0AmhLDeYGtAMDwhixdeULxDS93k4wsajG6XlYCoYxPnkIXBEDU+bFypbEtCpFpPV/aTk5jFwLOV9FcAuO+elyQclsK'
-
+    - id: "abcdef123456"
+      name: "DevClientId"
+      key: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArKGghemgJ/0t3dlv2RrTLInYzAdbDrJOog8VAKd6z8lAqSzCpIQr71ERnBUGFCOfBQY+cV66EU4UPenqWBvUIAUFzP1VBk94mCIY2Ln6ZRbKJU3/GIgYgYwhnbqtCIvfFsj70t7Yebt3e8ll3JVktbytpWeFBJMeojaAxLVBR1UAazsa5xF0XWf6YjLFfZhp/I6duEchIvyYbn3nlIDnbSSD5J4dsEQA1zpXJFvuFq8N2gwb1riwveW4YdTsoTGJPZr8MaaFWW+7wVi7DqkotmzqpdMAWixymneKSjhsTeDCIe9/fnhMKB2/vEpge1txYrZl+vjOyXEEj7pAzayb9wIDAQAB"
+      secret: "MIIEowIBAAKCAQEArKGghemgJ/0t3dlv2RrTLInYzAdbDrJOog8VAKd6z8lAqSzCpIQr71ERnBUGFCOfBQY+cV66EU4UPenqWBvUIAUFzP1VBk94mCIY2Ln6ZRbKJU3/GIgYgYwhnbqtCIvfFsj70t7Yebt3e8ll3JVktbytpWeFBJMeojaAxLVBR1UAazsa5xF0XWf6YjLFfZhp/I6duEchIvyYbn3nlIDnbSSD5J4dsEQA1zpXJFvuFq8N2gwb1riwveW4YdTsoTGJPZr8MaaFWW+7wVi7DqkotmzqpdMAWixymneKSjhsTeDCIe9/fnhMKB2/vEpge1txYrZl+vjOyXEEj7pAzayb9wIDAQABAoIBAD/f2d5SsFC7jBIPFyR0mXhcVNxBSH7qmM+71uCUF4v0gjlWd3qZ8Quuql5fJQ2klH0ub0JRc3Vdt32lJHGPcnCaiyfrAF/CXfOkgh8GyVBIG2msL1wrVy3v5KxQ2x9TaasrmInQrLZ2F+K0hT0WBdp8wp916zDjIq2Qjxq5mjrC6fIWPhKj7Ad/ny2VPrYf0GXDlq0BFGk+jXVnlRkF1CA9EMqsqfezugQw8jseL8fCLKme3/csI0BqvurWuVVe83dl9z7g4QCTCKcgGbuesNZqoj8OnQUukqwnQBx2diH05VO73/6k/reCQSiOnQGbwGpE54zToieCR7x+LN4gyzECgYEA+aevrg7JBEirZPRKe6EypeKa7TxZfANDoEtGqdzeyRjSRtNKuF0vsGB/6INDSmQU/GdnrtFujCAuhHRYSpnyehOQhTUXTk87PONKoUGfczmcz9uFLvWyBXaVmsk4D+ydP0D2Mw8Hmcc5s1D21l844DO1/44HV9Rd3CqtqGixhx8CgYEAsQTOjmr0DCykRidUFZaxmlznyW9WEmMJBEHyeiaJacfQdZfkjLWXWjrhV18JLJ/SN5UVpRw3+D/HPFB+1mlsuHcf4OBUDddUcGcGpiEcSN/lr97vIVKerlq/siuDpKOdccpr8P6VpJiZ411RxT+m27zli25ghqTLNVRhYutbCCkCgYAUIe6r5atWOhoAQScEg0JXWEfQG87HjmfUtF1Vc2dP5j2G0qEy7ujam12VPYiepiV/GUOmOGNmz22Q5uT71yBTseI0q8xeV0tapKWvDWCzZRD9PiGmYM/jWuXDnrhzqEwh/rYb9flR8Fv51uyg6vrmMaVan3R+I7UR/SsV6qNuVwKBgQCkg04gJ5/1rItjM2u+wJUAW7WCjHlWjzmy/kMGaMguSegfUXGzn5Qw5CXGmGkjUskApQo/r3EIwuU71ad7RvEmonc6++DCGEu+RtF0FbN+uq5w+2QL+QfGDEq5oB0xJmnNdg1JJKEYHkZueqzi/xvofa5rHcKRf5fnUStMzmSEuQKBgDo3z2iFUJWUO/ohxyzjUa0O6GU8AWf1NHmgQhtvgJvbhVuFzoxxudKfG9UIQlD5EguA/nfJjmuIUXl+9h0AmhLDeYGtAMDwhixdeULxDS93k4wsajG6XlYCoYxPnkIXBEDU+bFypbEtCpFpPV/aTk5jFwLOV9FcAuO+elyQclsK"

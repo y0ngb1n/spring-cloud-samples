@@ -7,7 +7,8 @@ package io.github.y0ngb1n.samples.gateway.core;
  */
 public final class ServerWebExchangeConstants {
 
-  private ServerWebExchangeConstants() {}
+  private ServerWebExchangeConstants() {
+  }
 
   public static final String CACHED_REQUEST_BODY_ATTR = "CACHED_REQUEST_BODY";
 

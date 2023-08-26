@@ -16,13 +16,12 @@ public class ClientDetailsProperties {
   /**
    * 查找与客户端ID匹配的客户端配置信息
    *
-   * @param clientId 客户端ID
+   * @param clientId
+   *            客户端ID
    * @return 客户端配置信息
    */
   public Optional<ClientDetails> find(String clientId) {
-    return this.getClients().stream()
-        .filter(client -> Objects.equals(clientId, client.getId()))
-        .findFirst();
+    return this.getClients().stream().filter(client -> Objects.equals(clientId, client.getId())).findFirst();
   }
 
   /** 客户端配置信息 */

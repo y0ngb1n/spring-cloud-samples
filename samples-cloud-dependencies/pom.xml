@@ -15,7 +15,7 @@
     <google-guava.version>32.0.0-jre</google-guava.version>
     <hutool.version>5.8.4</hutool.version>
     <samples-cloud.version>0.0.1-SNAPSHOT</samples-cloud.version>
-    <spotless.version>2.23.0</spotless.version>
+    <spotless.version>2.30.0</spotless.version>
     <spring-boot.version>2.6.9</spring-boot.version>
     <spring-cloud.version>2021.0.3</spring-cloud.version>
     <swagger.version>2.9.2</swagger.version>
@@ -100,16 +100,39 @@
           <artifactId>spotless-maven-plugin</artifactId>
           <version>${spotless.version}</version>
           <configuration>
+            <!-- https://github.com/diffplug/spotless/blob/main/plugin-maven/README.md#line-endings-and-encodings-invisible-stuff -->
+            <lineEndings>GIT_ATTRIBUTES</lineEndings>
             <java>
-              <indent>
-                <spaces>true</spaces>
-              </indent>
+              <eclipse />
               <endWithNewline />
               <trimTrailingWhitespace />
               <importOrder />
               <removeUnusedImports />
-              <googleJavaFormat />
+              <formatAnnotations />
+              <indent>
+                <spaces>true</spaces>
+                <spacesPerTab>2</spacesPerTab>
+              </indent>
             </java>
+            <yaml>
+              <includes>
+                <include>src/**/*.yml</include>
+                <include>src/**/*.yaml</include>
+              </includes>
+              <jackson />
+            </yaml>
+            <markdown>
+              <includes>
+                <include>**/*.md</include>
+              </includes>
+              <flexmark />
+            </markdown>
+            <sql>
+              <includes>
+                <include>src/main/resources/**/*.sql</include>
+              </includes>
+              <dbeaver />
+            </sql>
             <pom>
               <sortPom>
                 <encoding>${project.build.sourceEncoding}</encoding>

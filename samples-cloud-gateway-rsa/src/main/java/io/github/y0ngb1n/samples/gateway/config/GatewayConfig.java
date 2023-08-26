@@ -10,4 +10,5 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import({EncryptionConfig.class})
-public class GatewayConfig {}
+public class GatewayConfig {
+}
