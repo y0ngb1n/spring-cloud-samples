@@ -18,7 +18,7 @@
     <spotless.version>2.30.0</spotless.version>
     <spring-boot.version>2.7.15</spring-boot.version>
     <spring-cloud.version>2021.0.8</spring-cloud.version>
-    <swagger.version>2.9.2</swagger.version>
+    <swagger.version>2.10.0</swagger.version>
   </properties>
   <dependencyManagement>
     <dependencies>
